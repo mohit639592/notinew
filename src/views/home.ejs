@@ -157,6 +157,17 @@ footer span{ color:#00ffdd; cursor:pointer; }
 }
 .movie-card-button h2{ margin-bottom:10px; color:#00ffdd; }
 .movie-card-button p{ color:#aaa; font-size:14px; }
+
+/* optional: move second button left */
+.card:nth-of-type(2) .add-btn {
+  right: 95px;
+  background: linear-gradient(45deg, #ff6ec7, #00ffdd);
+  box-shadow: 0 0 15px rgba(255,110,199,0.6);
+}
+.card:nth-of-type(2) .add-btn:hover {
+  box-shadow: 0 0 25px rgba(255,110,199,0.9);
+}
+
 </style>
 </head>
 <body>
@@ -209,6 +220,26 @@ footer span{ color:#00ffdd; cursor:pointer; }
             <p>Click to view & manage your favorite movies</p>
         </a>
     </div>
+
+
+    <div class="card">
+        <h2>Subjects & Syllabus</h2>
+        <div class="events">
+          <% subjects.forEach(subject => { 
+            const completed = subject.syllabus.filter(t => t.completed).length;
+            const total = subject.syllabus.length || 1;
+            const percent = Math.round((completed / total) * 100);
+          %>
+            <div class="event-card">
+              <h3><%= subject.name %></h3>
+              <p><%= percent %>% completed</p>
+            </div>
+          <% }) %>
+        </div>
+      
+        <button class="add-btn" onclick="window.location.href='/sub'">+</button>
+      </div>
+      
 
     <!-- Upcoming Events -->
     <div class="card">

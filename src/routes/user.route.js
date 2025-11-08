@@ -3,6 +3,7 @@ const usersmodel = require("../models/user.model");
 const Task = require("../models/task.model");
 const event = require("../models/add-event.model");
 const router = express.Router();
+const Subject = require("../models/subject.model");
 
 // ================== INDEX / SIGNUP ==================
 router.get("/", (req, res) => {
@@ -52,6 +53,7 @@ router.get("/home", async (req, res) => {
             date: { $gte: today, $lt: tomorrow },
             completed: false
         });
+        const subjects = await Subject.find();
 
         // ✅ Recently completed tasks
         const completedTasks = await Task.find({
@@ -64,7 +66,7 @@ router.get("/home", async (req, res) => {
         todayDate.setHours(0, 0, 0, 0);
 
         const events = await event.find({ email: req.session.email }).sort("date");
-
+        
         const upcoming = events
             .filter(ev => {
                 const evDate = new Date(ev.date);
@@ -84,7 +86,7 @@ router.get("/home", async (req, res) => {
                 };
             });
 
-        res.render("home", { tasks, completedTasks, upcoming });
+        res.render("home", { tasks, completedTasks, upcoming,subjects });
 
     } catch (err) {
         console.log(err);
@@ -112,13 +114,7 @@ router.post("/complete-tasks", async (req, res) => {
 });
 
 // ✅ Route for chart data (JSON)
-router.get("/graph", (req, res) => {
-  res.json({
-    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-    tasksDone: [1, 2, 3, 4, 5, 6],
-    upcomingEvents: [3, 5, 2, 1, 0, 2],
-  });
-});
+
 
 // ✅ Route for dashboard view (EJS)
 router.get("/dashboard", (req, res) => {

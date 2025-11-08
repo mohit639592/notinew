@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Syllabus Tracker</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #1e1e2f; color: #fff; padding: 20px; }
+  h1 { text-align: center; margin-bottom: 20px; }
+  form { margin-bottom: 20px; text-align: center; }
+  input { padding: 8px; margin-right: 5px; }
+  button { padding: 8px 12px; cursor: pointer; background: #00bcd4; color: #fff; border: none; }
+  .subject { display: flex; justify-content: space-between; align-items: center; background: #2a2a40; padding: 12px; border-radius: 8px; margin-bottom: 5px; cursor: pointer; }
+  .subject-name { font-weight: bold; }
+  .progress-bar { width: 150px; height: 15px; background: #1a1a2b; border-radius: 20px; overflow: hidden; margin-left: 10px; }
+  .progress-fill { height: 100%; background: #00bcd4; text-align: center; line-height: 15px; color: #fff; transition: width 0.5s; }
+  .tasks { background: #1a1a2b; margin: 5px 0 15px 0; padding: 10px; border-radius: 8px; display: none; }
+  .task-item { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #333; }
+  .task-item:last-child { border-bottom: none; }
+</style>
+</head>
+<body>
+
+<h1>Syllabus Tracker</h1>
+
+<!-- Add New Subject -->
+<form action="/add-sub" method="POST">
+  <input type="text" name="name" placeholder="Add new subject" required>
+  <button type="submit">Add Subject</button>
+</form>
+
+<!-- Subjects List -->
+<% subjects.forEach(subject => { 
+  let progress = Math.round(subject.tasks.filter(t => t.completed).length / (subject.tasks.length || 1) * 100);
+%>
+<div class="subject" onclick="toggleTasks('<%= subject._id %>')">
+  <span class="subject-name"><%= subject.name %></span>
+  <div class="progress-bar">
+    <div class="progress-fill" id="progress-<%= subject._id %>" style="width:<%= progress %>%"><%= progress %>%</div>
+  </div>
+</div>
+
+<!-- Tasks Section -->
+<div class="tasks" id="tasks-<%= subject._id %>">
+  <form action="/subjects/<%= subject._id %>/update-task" method="POST">
+    <% subject.tasks.forEach(task => { %>
+      <div class="task-item">
+        <span><%= task.name %></span>
+        <input type="checkbox" name="completedTasks" value="<%= task._id %>" <%= task.completed ? "checked" : "" %>>
+      </div>
+    <% }) %>
+    <% if(subject.tasks.length > 0){ %>
+      <div style="text-align:center; margin-top:10px;">
+        <button type="submit">Update Progress</button>
+      </div>
+    <% } %>
+  </form>
+</div>
+<% }) %>
+
+<script>
+function toggleTasks(id){
+  const tasksDiv = document.getElementById('tasks-' + id);
+  tasksDiv.style.display = tasksDiv.style.display === 'none' || tasksDiv.style.display === '' ? 'block' : 'none';
+}
+</script>
+
+</body>
+</html>

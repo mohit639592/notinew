@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subjects & Syllabus Tracker</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(circle at top left, #050505, #0d0d1a, #101028);
+    color: #e9e9f9;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #7df9ff;
+    margin-bottom: 30px;
+    text-shadow: 0 0 20px #00fff2, 0 0 40px #00c6ff;
+  }
+
+  form {
+    text-align: center;
+  }
+
+  input[type="text"] {
+    padding: 10px;
+    width: 60%;
+    border-radius: 8px;
+    border: 1px solid #222;
+    outline: none;
+    font-size: 1rem;
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+  }
+
+  button, input[type="submit"] {
+    background: linear-gradient(90deg, #00e0ff, #9c27ff);
+    border: none;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px #00e0ff;
+  }
+
+  button:hover, input[type="submit"]:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px #9c27ff, 0 0 15px #00e0ff;
+  }
+
+  .subject {
+    background: rgba(255,255,255,0.06);
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 14px;
+    max-width: 800px;
+    box-shadow: 0 0 25px rgba(0,255,255,0.08);
+    border: 1px solid rgba(0,255,255,0.1);
+    transition: all 0.3s ease;
+  }
+
+  .subject:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 35px rgba(0,255,255,0.3);
+  }
+
+  .subject-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .subject-header h2 {
+    margin: 0;
+    color: #00e6ff;
+    font-size: 1.4rem;
+    text-shadow: 0 0 10px #00e6ff;
+  }
+
+  .progress {
+    background: rgba(255,255,255,0.15);
+    border-radius: 5px;
+    height: 10px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+
+  .progress-bar {
+    background: linear-gradient(90deg, #00e6ff, #9c27ff);
+    height: 10px;
+    border-radius: 5px;
+    transition: width 0.5s ease;
+  }
+
+  .syllabus {
+    display: none;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .topic {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .topic span {
+    font-size: 1rem;
+    color: #fff;
+  }
+
+  .topic input[type="checkbox"] {
+    transform: scale(1.3);
+    cursor: pointer;
+    accent-color: #00e6ff;
+  }
+
+  .add-topic {
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .add-topic input[type="text"] {
+    width: 75%;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border: none;
+  }
+
+  small {
+    color: #bbb;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .subject, .syllabus, .topic {
+    animation: fadeIn 0.4s ease;
+  }
+</style>
+
+<script>
+  function toggleSyllabus(id) {
+    const el = document.getElementById('syllabus-' + id);
+    el.style.display = el.style.display === 'none' ? 'block' : 'none';
+  }
+</script>
+</head>
+
+<body>
+  <h1>🚀 My Subjects & Progress Tracker</h1>
+
+  <form action="/add-sub" method="POST">
+    <input type="text" name="name" placeholder="Add new subject" required>
+    <button type="submit">+ Add Subject</button>
+  </form>
+
+  <% subjects.forEach(subject => { 
+    const completed = subject.syllabus.filter(t => t.completed).length;
+    const total = subject.syllabus.length || 1;
+    const percent = Math.round((completed / total) * 100);
+  %>
+
+    <div class="subject">
+      <div class="subject-header" onclick="toggleSyllabus('<%= subject._id %>')">
+        <h2><%= subject.name %></h2>
+        <div style="width: 40%; text-align: right;">
+          <div class="progress">
+            <div class="progress-bar" style="width: <%= percent %>%"></div>
+          </div>
+          <small><%= percent %>% complete</small>
+        </div>
+      </div>
+
+      <div id="syllabus-<%= subject._id %>" class="syllabus">
+        <% subject.syllabus.forEach(topic => { %>
+          <form class="topic" action="/toggle-topic/<%= subject._id %>/<%= topic._id %>" method="POST">
+            <span><%= topic.topic %></span>
+            <input type="checkbox" onChange="this.form.submit()" <%= topic.completed ? 'checked' : '' %> />
+          </form>
+        <% }) %>
+
+        <form class="add-topic" action="/add-topic/<%= subject._id %>" method="POST">
+          <input type="text" name="topic" placeholder="Add new syllabus topic" required>
+          <input type="submit" value="+ Add">
+        </form>
+      </div>
+    </div>
+  <% }) %>
+</body>
+</html>

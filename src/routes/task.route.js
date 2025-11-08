@@ -3,6 +3,7 @@ const router = express.Router();
 const Task = require('../models/task.model');
 const Event = require("../models/add-event.model");
 const Movies = require("../models/movies.model");
+const Subject = require("../models/subject.model");
 
 // ================== TASKS ==================
 router.get('/tasks', (req, res) => {
@@ -99,6 +100,40 @@ router.get('/lifetime', async (req, res) => {
   }));
 
   res.render('lifetime', { completedTasks, pendingTasks, totalEvents, graphData });
+});
+
+
+//SUBJECT ---- MODEL
+
+
+router.get("/sub", async (req, res) => {
+  const subjects = await Subject.find();
+  res.render("subject/home", { subjects });
+});
+
+// Add a new subject
+router.post("/add-sub", async (req, res) => {
+  const { name } = req.body;
+  await Subject.create({ name });
+  res.redirect("/sub");
+});
+
+// Add a new topic to a subject
+router.post("/add-topic/:id", async (req, res) => {
+  const { topic } = req.body;
+  await Subject.findByIdAndUpdate(req.params.id, {
+    $push: { syllabus: { topic } },
+  });
+  res.redirect("/sub");
+});
+
+// Toggle topic completion
+router.post("/toggle-topic/:subjectId/:topicId", async (req, res) => {
+  const subject = await Subject.findById(req.params.subjectId);
+  const topic = subject.syllabus.id(req.params.topicId);
+  topic.completed = !topic.completed;
+  await subject.save();
+  res.redirect("/sub");
 });
 
 
