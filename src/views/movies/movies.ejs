@@ -1,0 +1,122 @@
+<div class="container">
+  <h1>🎬 My Movies</h1>
+
+  <!-- Completed Movies Table -->
+  <div class="card">
+    <h2>Completed Movies</h2>
+    <% if (completedMovies.length > 0) { %>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% completedMovies.forEach(movie => { %>
+            <tr>
+              <td><%= movie.name %></td>
+              <td><%= movie.category %></td>
+              <td><%= movie.status %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <p>No completed movies yet 🎉</p>
+    <% } %>
+  </div>
+
+  <!-- Not Watched Movies Table -->
+  <div class="card">
+    <h2>Not Watched Movies</h2>
+    <% if (notWatchedMovies.length > 0) { %>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% notWatchedMovies.forEach(movie => { %>
+            <tr>
+              <td><%= movie.name %></td>
+              <td><%= movie.category %></td>
+              <td><%= movie.status %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <p>No movies pending 🎬</p>
+    <% } %>
+  </div>
+</div>
+
+<style>
+  body {
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .container{
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+  }
+
+  h1{
+    color: #00ffdd;
+    margin-bottom: 30px;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(0, 255, 221, 0.3);
+  }
+
+  .card{
+    background: #1a1a1a;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 0 15px rgba(0, 255, 221, 0.1);
+    margin-bottom: 30px;
+    transition: transform 0.2s;
+  }
+
+  .card:hover{
+    transform: scale(1.01);
+  }
+
+  .card h2{
+    color: #00ffdd;
+    margin-bottom: 15px;
+    text-shadow: 0 0 8px rgba(0, 255, 221, 0.2);
+  }
+
+  table{
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td{
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+  }
+
+  th{
+    color: #00ffdd;
+    font-weight: 600;
+  }
+
+  tr:hover{
+    background: #222222;
+  }
+
+  p{
+    color: #aaa;
+    font-style: italic;
+  }
+</style>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lifetime Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: radial-gradient(circle at 20% 20%, #0d0d2b, #000);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: 40px auto;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 15px;
+      letter-spacing: 1px;
+      color: #00e0ff;
+      text-shadow: 0 0 10px #00e0ff;
+      font-size: 1.8rem;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: rgba(0, 0, 30, 0.8);
+      border-radius: 12px;
+      padding: 15px 25px;
+      box-shadow: 0 0 12px #00e0ff55;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      min-width: 160px;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 15px #00e0ff88;
+    }
+
+    .card h2 {
+      color: #00e0ff;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .charts {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    canvas {
+      background: rgba(0, 0, 30, 0.6);
+      border-radius: 12px;
+      padding: 10px;
+      max-width: 280px;
+      max-height: 280px;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 13px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>⚡ Lifetime Productivity Dashboard</h1>
+
+    <div class="stats">
+      <div class="card">
+        <h2>✅ Completed</h2>
+        <p><%= completedTasks %></p>
+      </div>
+
+      <div class="card">
+        <h2>🕒 Pending</h2>
+        <p><%= pendingTasks %></p>
+      </div>
+
+      <div class="card">
+        <h2>🎉 Events</h2>
+        <p><%= totalEvents %></p>
+      </div>
+    </div>
+
+    <div class="charts">
+      <canvas id="summaryChart"></canvas>
+      <canvas id="trendChart"></canvas>
+    </div>
+
+    <footer>🚀 Secret Intelligence Dashboard</footer>
+  </div>
+
+  <script>
+    // ===== Pie Chart (Compact) =====
+    const summaryCtx = document.getElementById('summaryChart').getContext('2d');
+    new Chart(summaryCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Completed', 'Pending', 'Events'],
+        datasets: [{
+          data: [<%= completedTasks %>, <%= pendingTasks %>, <%= totalEvents %>],
+          backgroundColor: ['#00e0ff', '#ff9800', '#4caf50'],
+          borderWidth: 2
+        }]
+      },
+      options: {
+        cutout: '70%',
+        plugins: {
+          title: { display: true, text: 'Task Distribution', color: '#fff', font: { size: 14 } },
+          legend: { labels: { color: '#fff', font: { size: 12 } } }
+        }
+      }
+    });
+
+    // ===== Line Chart (Compact) =====
+    const trendCtx = document.getElementById('trendChart').getContext('2d');
+    const graphData = <%- JSON.stringify(graphData) %>;
+
+    new Chart(trendCtx, {
+      type: 'line',
+      data: {
+        labels: graphData.map(g => g.month),
+        datasets: [{
+          label: 'Completion (%)',
+          data: graphData.map(g => g.score),
+          borderColor: '#00e0ff',
+          backgroundColor: 'rgba(0, 224, 255, 0.15)',
+          tension: 0.4,
+          borderWidth: 2,
+          fill: true,
+          pointRadius: 3,
+          pointBackgroundColor: '#fff'
+        }]
+      },
+      options: {
+        scales: {
+          x: { ticks: { color: '#fff', font: { size: 11 } }, grid: { color: '#222' } },
+          y: { ticks: { color: '#fff', font: { size: 11 } }, grid: { color: '#222' } }
+        },
+        plugins: {
+          title: { display: true, text: 'Monthly Trend', color: '#fff', font: { size: 14 } },
+          legend: { labels: { color: '#fff', font: { size: 12 } } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

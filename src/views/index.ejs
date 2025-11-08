@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FunTask - Login</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      color: white;
+
+      /* 🔥 Next-level Background Image */
+      background: url('https://images.unsplash.com/photo-1526498460520-4c246339dccb?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .box {
+      background: rgba(0, 0, 0, 0.7); /* transparent dark layer */
+      padding: 25px;
+      border-radius: 12px;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 0 25px rgba(0, 255, 200, 0.3);
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      color: cyan;
+      margin-bottom: 15px;
+      text-shadow: 0 0 10px cyan;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      text-align: left;
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: none;
+      background: #333;
+      color: white;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: cyan;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px cyan;
+    }
+
+    button:hover {
+      background-color: #00e6e6;
+      box-shadow: 0 0 15px cyan;
+    }
+
+    p {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #ddd;
+    }
+
+    a {
+      color: cyan;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>FunTask</h1>
+    <!-- ✅ Updated Form -->
+    <form action="/" method="post">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required placeholder="Enter your email">
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required placeholder="Enter your password">
+
+      <button type="submit">Login</button>
+    </form>
+  </div>
+</body>
+</html>

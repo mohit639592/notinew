@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Event</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #121212;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background: #1e1e1e;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(0, 255, 221, 0.3);
+      width: 350px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #00ffdd;
+    }
+
+    input[type="text"],
+    input[type="date"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+      background: #2a2a2a;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      transition: background 0.2s;
+    }
+
+    input[type="text"]:focus,
+    input[type="date"]:focus {
+      background: #333;
+      box-shadow: 0 0 5px #00ffdd;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(45deg, #00ffdd, #ff6ec7);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(0,255,221,0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1>Add Event</h1>
+    <form action="/add-event" method="POST">
+      <input type="text" name="title" placeholder="Event title" required>
+      <input type="text" name="email" placeholder="Email" required>
+      <input type="date" name="date" required>
+      <button type="submit">Save Event</button>
+    </form>
+  </div>
+</body>
+</html>
