@@ -137,4 +137,27 @@ router.post("/toggle-topic/:subjectId/:topicId", async (req, res) => {
 });
 
 
+
+router.get("/prog-chart", async (req, res) => {
+  try {
+    const subjects = await Subject.find();
+
+    const chartData = subjects.map(sub => {
+      const total = sub.syllabus.length;
+      const completed = sub.syllabus.filter(t => t.completed).length;
+      const percentage = total ? Math.round((completed / total) * 100) : 0;
+
+      return { name: sub.name, percentage };
+    });
+
+    res.render("progress", { chartData });
+  } catch (err) {
+    console.error("Error:", err);
+    res.status(500).send("Error loading progress data");
+  }
+});
+
+
+
+
 module.exports = router;

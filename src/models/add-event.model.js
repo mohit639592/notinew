@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-
+const { mainDB } = require("../database/db");
 const eventSchema = new mongoose.Schema({
     title:{
         type: String,
@@ -15,5 +15,5 @@ const eventSchema = new mongoose.Schema({
     }
 })
 
-const eventmodel = mongoose.model("event",eventSchema);
+const eventmodel = mainDB.model("event",eventSchema);
 module.exports = eventmodel;

@@ -4,6 +4,7 @@ const Task = require("../models/task.model");
 const event = require("../models/add-event.model");
 const router = express.Router();
 const Subject = require("../models/subject.model");
+const Movies = require("../models/movies.model");
 
 // ================== INDEX / SIGNUP ==================
 router.get("/", (req, res) => {
@@ -119,6 +120,104 @@ router.post("/complete-tasks", async (req, res) => {
 // ✅ Route for dashboard view (EJS)
 router.get("/dashboard", (req, res) => {
   res.render("graph"); // your EJS file name (dashboard.ejs)
+});
+
+router.get("/collections",(req,res)=>{
+    res.render("collection/collection");
+})
+
+
+router.get("/collections/movies", async (req, res) => {
+    if (!req.session.email)
+        return res.status(401).send("Please login first");
+
+    const userMovies = await Movies.find();
+
+    const watched = userMovies.filter(m => m.status === "watched");
+    const notWatched = userMovies.filter(m => m.status === "not watched");
+
+    res.render("collection/movies/movies", { watched, notWatched });
+});
+
+
+router.post("/collections/movies", async (req, res) => {
+    const { name, category, status, poster } = req.body;
+
+    if (!req.session.email)
+        return res.status(401).send("Please login first");
+
+    if (!name || !category || !poster)
+        return res.status(400).send("All fields are required");
+
+    // check duplicate movie
+    const existing = await Movies.findOne({ name, email: req.session.email });
+    if (existing) return res.send("MOVIE ALREADY EXISTS");
+
+    await Movies.create({
+        name,
+        category,
+        status: status || "not watched",
+        poster,
+        email: req.session.email
+    });
+
+    res.send("SUCCESS");
+});
+router.get("/collections/add-movies",(req,res)=>{
+    res.render("collection/movies/add-movies")
+})
+
+
+router.post("/collections/add-movies", async (req, res) => {
+    try {
+        const { name, category, poster, status } = req.body;
+
+        // Validation
+        if (!name || !category || !poster) {
+            return res.status(400).send("All fields are required");
+        }
+
+        // Create movie
+        await Movies.create({
+            name,
+            category,
+            poster,
+            status: status || "not watched"
+        });
+
+        res.redirect("/collections/movies");  // Redirect to movies list page
+        // OR: res.send("SUCCESS");
+
+    } catch (err) {
+        console.error("Error adding movie:", err);
+        res.status(500).send("Server Error");
+    }
+});
+
+router.post("/collections/movies/toggle/:id", async (req, res) => {
+    try {
+        const movie = await Movies.findById(req.params.id);
+
+        if (!movie) return res.status(404).send("Movie not found");
+
+        movie.status = movie.status === "watched" ? "not watched" : "watched";
+        await movie.save();
+
+        res.redirect("/collections/movies");
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Error updating movie");
+    }
+});
+
+router.post("/collections/movies/delete/:id", async (req, res) => {
+    try {
+        await Movies.findByIdAndDelete(req.params.id);
+        res.redirect("/collections/movies");
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Error deleting movie");
+    }
 });
 
 

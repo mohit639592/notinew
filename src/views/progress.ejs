@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Syllabus Progress</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background: #0e1111;
+      color: white;
+      font-family: "Poppins", sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #00eaff;
+      font-size: 2em;
+    }
+    #chartContainer {
+      width: 80%;
+      max-width: 700px;
+      background: #1a1d1f;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+    }
+    canvas {
+      width: 100% !important;
+      height: 400px !important;
+    }
+  </style>
+</head>
+<body>
+  <h1>Syllabus Progress</h1>
+
+  <div id="chartContainer">
+    <canvas id="syllabusChart"></canvas>
+  </div>
+
+  <script>
+    // ✅ Data passed from Node.js
+    const chartData = <%- JSON.stringify(chartData) %>;
+
+    console.log("Chart Data Received:", chartData);
+
+    // ✅ Prepare data for Chart.js
+    const labels = chartData.map(item => item.name);
+    const percentages = chartData.map(item => item.percentage);
+
+    // ✅ Ensure Chart.js only runs when data exists
+    if (chartData.length > 0) {
+      const ctx = document.getElementById('syllabusChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Completion (%)',
+            data: percentages,
+            backgroundColor: 'rgba(0, 255, 255, 0.5)',
+            borderColor: '#00eaff',
+            borderWidth: 2,
+            borderRadius: 6
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              ticks: { color: '#fff' },
+              grid: { color: 'rgba(255,255,255,0.1)' }
+            },
+            x: {
+              ticks: { color: '#fff' },
+              grid: { color: 'rgba(255,255,255,0.1)' }
+            }
+          },
+          plugins: {
+            legend: {
+              labels: { color: '#00eaff' }
+            },
+            tooltip: {
+              callbacks: {
+                label: (context) => `${context.raw}% completed`
+              }
+            }
+          }
+        }
+      });
+    } else {
+      document.getElementById('chartContainer').innerHTML =
+        "<p style='color:gray;text-align:center;'>No syllabus data available</p>";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Collections</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+    background:#121212;
+    margin:0;
+    padding:0;
+    font-family:'Poppins', sans-serif;
+    color:white;
+}
+
+/* Navbar */
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 40px;
+    background:rgba(30,30,30,0.7);
+    backdrop-filter:blur(10px);
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+nav h1{ color:#00ffdd; }
+nav a{ color:#ff6ec7; text-decoration:none; }
+
+/* Page Container */
+.container{
+    max-width:1200px;
+    margin:30px auto;
+    padding:0 20px;
+}
+
+.page-title{
+    font-size:28px;
+    color:#00ffdd;
+    margin-bottom:20px;
+}
+
+/* Category Grid */
+.category-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+
+/* Category Card */
+.category-card{
+    background:#1e1e1e;
+    padding:25px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 0 20px rgba(0,255,221,0.2);
+    transition:0.25s;
+    cursor:pointer;
+}
+.category-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 0 35px rgba(0,255,221,0.5);
+}
+
+.category-card span{
+    font-size:40px;
+    display:block;
+    margin-bottom:10px;
+}
+
+.category-card h3{
+    color:#00ffdd;
+    margin-bottom:5px;
+}
+
+.category-card p{
+    color:#aaa;
+    font-size:14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+    <h1>My Collections</h1>
+    <a href="/">← Back</a>
+</nav>
+
+<div class="container">
+    <h2 class="page-title">Your Collection Categories</h2>
+
+    <div class="category-grid">
+
+        <!-- Movies -->
+        <div class="category-card" onclick="window.location.href='/collections/movies'">
+            <span>🎬</span>
+            <h3>Movies</h3>
+            <p>Your favorite films & watchlist</p>
+        </div>
+
+        <!-- Books -->
+        <div class="category-card" onclick="window.location.href='/collections/books'">
+            <span>📚</span>
+            <h3>Books</h3>
+            <p>Read list, favorites & notes</p>
+        </div>
+
+        <!-- Watches -->
+        <div class="category-card" onclick="window.location.href='/collections/watches'">
+            <span>⌚</span>
+            <h3>Watches</h3>
+            <p>Luxury & dream watches</p>
+        </div>
+
+        <!-- Tours -->
+        <div class="category-card" onclick="window.location.href='/collections/tours'">
+            <span>🧳</span>
+            <h3>Tours</h3>
+            <p>Travel spots & dream trips</p>
+        </div>
+
+        <!-- Games -->
+        <div class="category-card" onclick="window.location.href='/collections/games'">
+            <span>🎮</span>
+            <h3>Games</h3>
+            <p>Favorite games, scores & wishlist</p>
+        </div>
+
+        <!-- Gadgets -->
+        <div class="category-card" onclick="window.location.href='/collections/gadgets'">
+            <span>💎</span>
+            <h3>Gadgets</h3>
+            <p>Tech items & wishlist</p>
+        </div>
+
+        <!-- Photos -->
+        <div class="category-card" onclick="window.location.href='/collections/photos'">
+            <span>📸</span>
+            <h3>Photos</h3>
+            <p>Memories & moments</p>
+        </div>
+
+        <!-- Notes -->
+        <div class="category-card" onclick="window.location.href='/collections/notes'">
+            <span>📝</span>
+            <h3>Notes</h3>
+            <p>Ideas, thoughts & saved lists</p>
+        </div>
+
+        <!-- Add More -->
+        <div class="category-card" onclick="window.location.href='/collections/custom'">
+            <span>➕</span>
+            <h3>Create More</h3>
+            <p>Add your own collection type</p>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

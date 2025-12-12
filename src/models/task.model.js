@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const { mainDB } = require("../database/db");
 const taskSchema = new mongoose.Schema({
   title: { type: String, required: true },          // Task title
   description: { type: String },                    // Optional description
@@ -8,4 +8,4 @@ const taskSchema = new mongoose.Schema({
   email:{type:String, requiresd:true},  
 });
 
-module.exports = mongoose.model('Task', taskSchema);
+module.exports = mainDB.model('Task', taskSchema);

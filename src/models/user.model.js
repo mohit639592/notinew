@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { mainDB } = require("../database/db");
 const usersSchema = new mongoose.Schema({
     email:{
         type: String,
@@ -10,6 +11,6 @@ const usersSchema = new mongoose.Schema({
     }
 })
 
-const usersmodel = mongoose.model("users",usersSchema)
+const usersmodel = mainDB.model("users",usersSchema)
 
 module.exports = usersmodel;

@@ -1,21 +1,39 @@
 const mongoose = require("mongoose");
-const movieSchema = new mongoose.Schema({
-    name:{
-        type:String,
-        required:true
+const { collectionsDB } = require("../database/db");
+
+const MovieSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+        trim: true
     },
-    category:{
-        type:String,
-        require:true
+
+    category: {
+        type: String,
+        required: true,
+        trim: true
     },
-    email:{
-        type:String,
-        required:true
+
+    poster: {
+        type: String,
+        required: true // URL of google image poster
     },
-    status:{
-        type:String,
-        required:true
+
+    status: {
+        type: String,
+        enum: ["watched", "not watched"],
+        default: "not watched"
+    },
+
+    // email: {
+    //     type: String,
+    //     required: true
+    // },
+
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
-})
-const moviemodel = mongoose.model("Movies",movieSchema)
-module.exports = moviemodel
+});
+
+module.exports = collectionsDB.model("Movie", MovieSchema);

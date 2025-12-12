@@ -1,15 +1,17 @@
 const mongoose = require("mongoose");
-const dotenv = require("dotenv")
-dotenv.config(); 
-const connect = ()=>{
-    mongoose.connect(process.env.MONGO_URI)
-    .then(()=>{
-        console.log("SERVER CONNECTED");
-    })
-    .catch((err)=>{
-        console.log(err);
-    })
-}
+const dotenv = require("dotenv");
+dotenv.config();
 
+// MAIN DATABASE (Default)
+const mainDB = mongoose.createConnection(process.env.MONGO_URI);
 
-module.exports = connect;
+mainDB.on("connected", () => console.log("Main DB Connected"));
+mainDB.on("error", err => console.log("Main DB Error:", err));
+
+// SECOND DATABASE (Collections)
+const collectionsDB = mongoose.createConnection(process.env.MONGO_URI2);
+
+collectionsDB.on("connected", () => console.log("Collections DB Connected"));
+collectionsDB.on("error", err => console.log("Collections DB Error:", err));
+
+module.exports = { mainDB, collectionsDB };

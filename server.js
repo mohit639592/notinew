@@ -1,8 +1,9 @@
+require("dotenv").config();
 const app = require("./src/app");
-const connect = require("./src/database/db");
-const port =  process.env.PORT ||4000;
+require("./src/database/db"); // This auto-connects both DBs
 
-app.listen(port,()=>{
-    console.log("SERVER SUCCESSFULLY CONNECTED");
-    connect();
-})
+const port = process.env.PORT || 4000;
+
+app.listen(port, () => {
+    console.log(`SERVER SUCCESSFULLY CONNECTED ON PORT ${port}`);
+});
