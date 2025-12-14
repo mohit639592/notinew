@@ -2,207 +2,249 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Subjects & Syllabus Tracker</title>
+<title>Subjects & Progress Tracker</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+body{
+  font-family:'Poppins',sans-serif;
+  background: radial-gradient(circle at top, #05050a, #0b0f2e);
+  color:#eafcff;
+  padding:25px;
+}
 
-  body {
-    font-family: 'Poppins', sans-serif;
-    background: radial-gradient(circle at top left, #050505, #0d0d1a, #101028);
-    color: #e9e9f9;
-    margin: 0;
-    padding: 20px;
-    min-height: 100vh;
-  }
+h1{
+  text-align:center;
+  font-size:2.6rem;
+  color:#6dfff3;
+  margin-bottom:35px;
+  text-shadow:0 0 25px #00fff2;
+}
 
-  h1 {
-    text-align: center;
-    font-size: 2.5rem;
-    color: #7df9ff;
-    margin-bottom: 30px;
-    text-shadow: 0 0 20px #00fff2, 0 0 40px #00c6ff;
-  }
+/* ADD SUBJECT */
+.add-subject{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin-bottom:35px;
+}
+.add-subject input{
+  width:55%;
+  padding:12px;
+  border-radius:12px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(0,255,255,.3);
+  color:#fff;
+}
+.add-subject button{
+  padding:12px 20px;
+  border-radius:12px;
+  border:none;
+  background:linear-gradient(90deg,#00eaff,#9c27ff);
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+}
 
-  form {
-    text-align: center;
-  }
+/* SUBJECT CARD */
+.subject{
+  max-width:900px;
+  margin:22px auto;
+  padding:22px;
+  border-radius:18px;
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(15px);
+  border-left:4px solid #00ffe1;
+}
 
-  input[type="text"] {
-    padding: 10px;
-    width: 60%;
-    border-radius: 8px;
-    border: 1px solid #222;
-    outline: none;
-    font-size: 1rem;
-    background: rgba(255,255,255,0.08);
-    color: #fff;
-  }
+.subject-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+}
 
-  button, input[type="submit"] {
-    background: linear-gradient(90deg, #00e0ff, #9c27ff);
-    border: none;
-    color: #fff;
-    padding: 10px 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 10px #00e0ff;
-  }
+.subject-header h2{
+  color:#00f7ff;
+}
 
-  button:hover, input[type="submit"]:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 25px #9c27ff, 0 0 15px #00e0ff;
-  }
+.subject-actions{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
 
-  .subject {
-    background: rgba(255,255,255,0.06);
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 14px;
-    max-width: 800px;
-    box-shadow: 0 0 25px rgba(0,255,255,0.08);
-    border: 1px solid rgba(0,255,255,0.1);
-    transition: all 0.3s ease;
-  }
+.delete-btn{
+  background:#ff3b3b;
+  border:none;
+  color:white;
+  padding:6px 10px;
+  border-radius:8px;
+  cursor:pointer;
+}
 
-  .subject:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 35px rgba(0,255,255,0.3);
-  }
+/* PROGRESS */
+.progress{
+  height:10px;
+  background:rgba(255,255,255,0.15);
+  border-radius:10px;
+  overflow:hidden;
+}
+.progress-bar{
+  height:10px;
+  background:linear-gradient(90deg,#00fff2,#9c27ff);
+}
 
-  .subject-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-  }
+/* SYLLABUS */
+.syllabus{
+  margin-top:20px;
+  display:none;
+}
 
-  .subject-header h2 {
-    margin: 0;
-    color: #00e6ff;
-    font-size: 1.4rem;
-    text-shadow: 0 0 10px #00e6ff;
-  }
+.topic{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px;
+  margin-bottom:8px;
+  border-radius:10px;
+  background:rgba(255,255,255,0.05);
+}
 
-  .progress {
-    background: rgba(255,255,255,0.15);
-    border-radius: 5px;
-    height: 10px;
-    margin-top: 8px;
-    overflow: hidden;
-  }
+.topic-right{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
 
-  .progress-bar {
-    background: linear-gradient(90deg, #00e6ff, #9c27ff);
-    height: 10px;
-    border-radius: 5px;
-    transition: width 0.5s ease;
-  }
+.topic input{
+  transform:scale(1.3);
+  accent-color:#00ffe1;
+}
 
-  .syllabus {
-    display: none;
-    margin-top: 15px;
-    padding-top: 10px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-  }
+/* MULTI ADD TOPIC */
+.add-topic{
+  margin-top:15px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
 
-  .topic {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
+.add-topic textarea{
+  width:100%;
+  min-height:90px;
+  padding:10px;
+  border-radius:10px;
+  border:none;
+  background:rgba(255,255,255,0.1);
+  color:#fff;
+  resize:vertical;
+}
 
-  .topic span {
-    font-size: 1rem;
-    color: #fff;
-  }
-
-  .topic input[type="checkbox"] {
-    transform: scale(1.3);
-    cursor: pointer;
-    accent-color: #00e6ff;
-  }
-
-  .add-topic {
-    margin-top: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .add-topic input[type="text"] {
-    width: 75%;
-    background: rgba(255,255,255,0.1);
-    color: #fff;
-    border: none;
-  }
-
-  small {
-    color: #bbb;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .subject, .syllabus, .topic {
-    animation: fadeIn 0.4s ease;
-  }
+.add-topic button{
+  align-self:flex-end;
+  padding:10px 20px;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(90deg,#00ffe1,#9c27ff);
+  cursor:pointer;
+  font-weight:600;
+}
 </style>
 
 <script>
-  function toggleSyllabus(id) {
-    const el = document.getElementById('syllabus-' + id);
-    el.style.display = el.style.display === 'none' ? 'block' : 'none';
+function toggleSyllabus(id){
+  const el = document.getElementById('syllabus-'+id);
+  el.style.display = el.style.display === 'block' ? 'none' : 'block';
+}
+
+/* Convert textarea lines to hidden inputs */
+function prepareTopics(form){
+  const textarea = form.querySelector("textarea");
+  const lines = textarea.value.split("\n").map(t => t.trim()).filter(Boolean);
+
+  form.querySelectorAll("input[name='topics[]']").forEach(e => e.remove());
+
+  lines.forEach(line=>{
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = "topics[]";
+    input.value = line;
+    form.appendChild(input);
+  });
+
+  if(lines.length === 0){
+    alert("Please add at least one topic");
+    return false;
   }
+  return true;
+}
 </script>
 </head>
 
 <body>
-  <h1>🚀 My Subjects & Progress Tracker</h1>
 
-  <form action="/add-sub" method="POST">
-    <input type="text" name="name" placeholder="Add new subject" required>
-    <button type="submit">+ Add Subject</button>
-  </form>
+<h1>🚀 My Subjects & Progress Tracker</h1>
 
-  <% subjects.forEach(subject => { 
-    const completed = subject.syllabus.filter(t => t.completed).length;
-    const total = subject.syllabus.length || 1;
-    const percent = Math.round((completed / total) * 100);
-  %>
+<form class="add-subject" action="/add-sub" method="POST">
+  <input type="text" name="name" placeholder="Add new subject" required>
+  <button type="submit">+ Add Subject</button>
+</form>
 
-    <div class="subject">
-      <div class="subject-header" onclick="toggleSyllabus('<%= subject._id %>')">
-        <h2><%= subject.name %></h2>
-        <div style="width: 40%; text-align: right;">
-          <div class="progress">
-            <div class="progress-bar" style="width: <%= percent %>%"></div>
-          </div>
-          <small><%= percent %>% complete</small>
+<% subjects.forEach(subject => { 
+  const completed = subject.syllabus.filter(t => t.completed).length;
+  const total = subject.syllabus.length || 1;
+  const percent = Math.round((completed / total) * 100);
+%>
+
+<div class="subject">
+  <div class="subject-header" onclick="toggleSyllabus('<%= subject._id %>')">
+    <h2><%= subject.name %></h2>
+
+    <div class="subject-actions">
+      <div style="width:160px">
+        <div class="progress">
+          <div class="progress-bar" style="width:<%= percent %>%"></div>
+        </div>
+        <small><%= percent %>% complete</small>
+      </div>
+
+      <form action="/delete-subject/<%= subject._id %>" method="POST">
+        <button class="delete-btn">🗑</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="syllabus" id="syllabus-<%= subject._id %>">
+
+    <% subject.syllabus.forEach(topic => { %>
+      <div class="topic">
+        <span><%= topic.topic %></span>
+
+        <div class="topic-right">
+          <form action="/toggle-topic/<%= subject._id %>/<%= topic._id %>" method="POST">
+            <input type="checkbox" onchange="this.form.submit()" <%= topic.completed?'checked':'' %>>
+          </form>
+
+          <form action="/delete-topic/<%= subject._id %>/<%= topic._id %>" method="POST">
+            <button class="delete-btn">🗑</button>
+          </form>
         </div>
       </div>
+    <% }) %>
 
-      <div id="syllabus-<%= subject._id %>" class="syllabus">
-        <% subject.syllabus.forEach(topic => { %>
-          <form class="topic" action="/toggle-topic/<%= subject._id %>/<%= topic._id %>" method="POST">
-            <span><%= topic.topic %></span>
-            <input type="checkbox" onChange="this.form.submit()" <%= topic.completed ? 'checked' : '' %> />
-          </form>
-        <% }) %>
+    <!-- MULTI TOPIC ADD -->
+    <form class="add-topic" action="/add-topic/<%= subject._id %>" method="POST"
+          onsubmit="return prepareTopics(this)">
+      <textarea placeholder="Add multiple topics (one per line)"></textarea>
+      <button>Add Topics</button>
+    </form>
 
-        <form class="add-topic" action="/add-topic/<%= subject._id %>" method="POST">
-          <input type="text" name="topic" placeholder="Add new syllabus topic" required>
-          <input type="submit" value="+ Add">
-        </form>
-      </div>
-    </div>
-  <% }) %>
+  </div>
+</div>
+
+<% }) %>
+
 </body>
 </html>

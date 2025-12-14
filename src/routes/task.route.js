@@ -111,6 +111,20 @@ router.get("/sub", async (req, res) => {
   res.render("subject/home", { subjects });
 });
 
+router.post("/delete-subject/:id", async (req, res) => {
+  await Subject.findByIdAndDelete(req.params.id);
+  res.redirect("/sub");
+});
+
+
+router.post("/delete-topic/:subjectId/:topicId", async (req, res) => {
+  await Subject.findByIdAndUpdate(req.params.subjectId, {
+    $pull: { syllabus: { _id: req.params.topicId } }
+  });
+  res.redirect("/sub");
+});
+
+
 // Add a new subject
 router.post("/add-sub", async (req, res) => {
   const { name } = req.body;
@@ -120,12 +134,17 @@ router.post("/add-sub", async (req, res) => {
 
 // Add a new topic to a subject
 router.post("/add-topic/:id", async (req, res) => {
-  const { topic } = req.body;
+  const topics = req.body.topics || [];
+
+  const formatted = topics.map(t => ({ topic: t }));
+
   await Subject.findByIdAndUpdate(req.params.id, {
-    $push: { syllabus: { topic } },
+    $push: { syllabus: { $each: formatted } }
   });
+
   res.redirect("/sub");
 });
+
 
 // Toggle topic completion
 router.post("/toggle-topic/:subjectId/:topicId", async (req, res) => {

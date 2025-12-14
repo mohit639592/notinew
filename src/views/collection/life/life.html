@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Life Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    background:#0e0e0e;
+    color:#fff;
+}
+
+/* Header */
+.header{
+    padding:25px 40px;
+    font-size:28px;
+    font-weight:600;
+    color:#00ffdd;
+}
+
+/* Container */
+.container{
+    padding:20px 40px;
+}
+
+/* Section Card */
+.card{
+    background:#181818;
+    border-radius:16px;
+    padding:20px;
+    margin-bottom:25px;
+    box-shadow:0 0 25px rgba(0,255,221,0.08);
+}
+
+/* Titles */
+.card h3{
+    margin:0 0 15px 0;
+    color:#00ffdd;
+    font-size:20px;
+}
+
+/* Focus */
+.focus{
+    font-size:18px;
+    color:#ccc;
+}
+
+/* Goals Grid */
+.goals{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
+}
+
+.goal-box{
+    background:#121212;
+    padding:15px;
+    border-radius:12px;
+    border:1px solid #222;
+}
+
+.goal-box span{
+    font-size:14px;
+    color:#aaa;
+}
+
+.goal-box h4{
+    margin:5px 0 0;
+    color:#fff;
+}
+
+/* Progress Bar */
+.progress-bar{
+    height:10px;
+    background:#222;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.progress{
+    height:100%;
+    width:70%;
+    background:linear-gradient(90deg,#00ffdd,#00c2ff);
+}
+
+/* List */
+ul{
+    padding-left:18px;
+}
+li{
+    color:#ccc;
+    margin-bottom:6px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">🧭 Life Roadmap</div>
+
+<div class="container">
+
+    <!-- Current Focus -->
+    <div class="card">
+        <h3>🎯 Current Focus</h3>
+        <div class="focus">Full Stack Development + DSA</div>
+    </div>
+
+    <!-- Active Goals -->
+    <div class="card">
+        <h3>🚀 Active Life Goals</h3>
+        <div class="goals">
+            <div class="goal-box">
+                <span>Career</span>
+                <h4>Become Software Engineer</h4>
+            </div>
+            <div class="goal-box">
+                <span>Skills</span>
+                <h4>Master MERN Stack</h4>
+            </div>
+            <div class="goal-box">
+                <span>Learning</span>
+                <h4>DSA + System Design</h4>
+            </div>
+            <div class="goal-box">
+                <span>Personal</span>
+                <h4>Discipline & Consistency</h4>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress -->
+    <div class="card">
+        <h3>📊 Milestone Progress</h3>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+        <p style="margin-top:8px;color:#aaa;">70% Completed</p>
+    </div>
+
+    <!-- Upcoming -->
+    <div class="card">
+        <h3>🗓 Next 30 Days Focus</h3>
+        <ul>
+            <li>Complete React Basics</li>
+            <li>Build One Real Project</li>
+            <li>Practice DSA Daily</li>
+        </ul>
+    </div>
+
+    <!-- Vision -->
+    <div class="card">
+        <h3>🌱 Long-Term Vision</h3>
+        <p style="color:#ccc;">
+            Become a confident developer with strong skills, 
+            good projects, and a clear career direction.
+        </p>
+    </div>
+
+</div>
+
+</body>
+</html>
