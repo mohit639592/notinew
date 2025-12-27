@@ -109,45 +109,65 @@ body {
 <!-- WATCHED SECTION -->
 <h2 class="section-title">🎬 Watched Movies</h2>
 <div class="movies-grid">
-    <% watched.forEach(movie => { %>
-      <div class="movie-card">
+  <% watched.forEach(movie => { %>
+
+    <div class="movie-card">
+
+      <!-- CLICKABLE GOOGLE SEARCH -->
+      <div onclick="window.open('https://www.google.com/search?q=' + encodeURIComponent('<%= movie.name %>'), '_blank')">
         <img src="<%= movie.poster %>" alt="Poster">
         <div class="movie-title"><%= movie.name %></div>
         <div class="movie-category"><%= movie.category %></div>
-    
-        <form action="/collections/movies/toggle/<%= movie._id %>" method="POST">
-            <button class="toggle-btn">
-                <%= movie.status === "watched" ? "Mark as Not Watched" : "Mark as Watched" %>
-            </button>
-        </form>
-        <form action="/collections/movies/delete/<%= movie._id %>" method="POST">
-          <button class="delete-btn">Delete</button>
+      </div>
+
+      <!-- BUTTONS STILL WORK -->
+      <form action="/collections/movies/toggle/<%= movie._id %>" method="POST">
+        <button class="toggle-btn" onclick="event.stopPropagation()">
+          <%= movie.status === 'watched' ? 'Mark as Not Watched' : 'Mark as Watched' %>
+        </button>
       </form>
+
+      <form action="/collections/movies/delete/<%= movie._id %>" method="POST">
+        <button class="delete-btn" onclick="event.stopPropagation()">
+          Delete
+        </button>
+      </form>
+
     </div>
-    
-    <% }) %>
+
+  <% }) %>
 </div>
 
 <!-- NOT WATCHED SECTION -->
 <h2 class="section-title">📌 Not Watched</h2>
 <div class="movies-grid">
     <% notWatched.forEach(movie => { %>
-        <div class="movie-card">
-            <img src="<%= movie.poster %>" alt="Poster">
-            <div class="movie-title"><%= movie.name %></div>
-            <div class="movie-category"><%= movie.category %></div>
-
-            <form action="/collections/movies/toggle/<%= movie._id %>" method="POST">
-                <button class="toggle-btn">
-                    <%= movie.status === "watched" ? "Mark as Not Watched" : "Mark as Watched" %>
-                </button>
-            </form>
-            <form action="/collections/movies/delete/<%= movie._id %>" method="POST">
-              <button class="delete-btn">Delete</button>
-          </form>
+    
+      <div class="movie-card">
+    
+        <!-- CLICKABLE AREA -->
+        <div onclick="window.open('https://www.google.com/search?q=' + encodeURIComponent('<%= movie.name %>'), '_blank')">
+          <img src="<%= movie.poster %>" />
+          <div class="movie-title"><%= movie.name %></div>
+          <div class="movie-category"><%= movie.category %></div>
         </div>
+    
+        <!-- BUTTONS BELOW -->
+        <form action="/collections/movies/toggle/<%= movie._id %>" method="POST">
+          <button class="toggle-btn">
+            <%= movie.status === 'watched' ? 'Mark as Not Watched' : 'Mark as Watched' %>
+          </button>
+        </form>
+    
+        <form action="/collections/movies/delete/<%= movie._id %>" method="POST">
+          <button class="delete-btn">Delete</button>
+        </form>
+    
+      </div>
+    
     <% }) %>
-</div>
+    </div>
+    
 
 
 <!-- ADD MOVIE BUTTON -->
