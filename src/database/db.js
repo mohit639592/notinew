@@ -14,4 +14,10 @@ const collectionsDB = mongoose.createConnection(process.env.MONGO_URI2);
 collectionsDB.on("connected", () => console.log("Collections DB Connected"));
 collectionsDB.on("error", err => console.log("Collections DB Error:", err));
 
-module.exports = { mainDB, collectionsDB };
+
+//THIRD DATABASE
+const statsDB = mongoose.createConnection(process.env.MONGO_URI3);
+
+collectionsDB.on("connected", () => console.log("Stats DB Connected"));
+collectionsDB.on("error", err => console.log("stats DB Error:", err));
+module.exports = { mainDB, collectionsDB,statsDB };

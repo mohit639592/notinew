@@ -11,6 +11,9 @@ app.set("view engine","ejs")
 app.set("views",path.join(__dirname,"views"))
 
 
+const methodOverride = require("method-override");
+app.use(methodOverride("_method"));
+
 const session = require("express-session");
 
 // ✅ session setup global level pe
@@ -26,4 +29,5 @@ app.use(session({
 
 app.use("/",userrouter)
 app.use("/", taskroute);
+
 module.exports = app;

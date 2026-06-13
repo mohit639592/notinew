@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Add Dharma Section</title>
+
+<style>
+body{
+  background:#000;
+  color:white;
+  font-family:poppins;
+}
+
+form{
+  max-width:600px;
+  margin:40px auto;
+  background:#111;
+  padding:25px;
+  border-radius:15px;
+  box-shadow:0 0 30px rgba(255,150,0,0.3);
+}
+
+input, textarea{
+  width:100%;
+  padding:10px;
+  margin:8px 0 15px;
+  border-radius:8px;
+  border:none;
+  outline:none;
+}
+
+button{
+  width:100%;
+  padding:10px;
+  background:#ffb000;
+  color:#000;
+  font-weight:bold;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+a{color:#00ffee;text-decoration:none;}
+</style>
+</head>
+
+<body>
+
+<a href="/collections/devotion/dharma">← Back</a>
+
+<h2 style="text-align:center;color:#ffb000;">Add Dharma Section</h2>
+
+<form method="POST" action="/collections/devotion/dharma/add">
+
+  <label>Title</label>
+  <input name="title" placeholder="धर्म — कर्म से जन्म लेता है" required>
+
+  <label>Description</label>
+  <textarea name="description" rows="3" placeholder="Write something meaningful..." required></textarea>
+
+  <label>Image URL</label>
+  <input name="imageUrl" placeholder="Paste image link here" required>
+
+  <label>Order (1,2,3,...)</label>
+  <input name="order" type="number" placeholder="1" required>
+
+  <button type="submit">Save</button>
+
+</form>
+
+</body>
+</html>

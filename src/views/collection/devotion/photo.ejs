@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dharma Journey</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Cinzel:wght@600&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    background:#000;
+    color:#e6e6e6;
+    font-family:'Poppins',sans-serif;
+}
+
+/* HEADER */
+header{
+    text-align:center;
+    padding:80px 20px 40px;
+}
+header h1{
+    font-family:'Cinzel', serif;
+    color:#ffb000;
+    font-size:40px;
+}
+
+/* SECTION WRAPPER */
+.section{
+    max-width:1100px;
+    margin:60px auto;
+    display:flex;
+    align-items:center;
+    gap:40px;
+    padding:10px;
+}
+
+/* IMAGE */
+.section img{
+    width:100%;
+    border-radius:18px;
+    box-shadow:0 0 40px rgba(255,150,0,0.4);
+}
+
+/* TEXT BOX */
+.text{
+    flex:1;
+}
+.text h2{
+    color:#ffb000;
+    font-family:'Cinzel',serif;
+    font-size:26px;
+}
+.text p{
+    color:#cfcfcf;
+}
+
+/* IMAGE BOX */
+.image{
+    flex:1;
+}
+
+/* ALTERNATE LAYOUT */
+.right{
+    flex-direction:row-reverse;
+}
+
+/* DELETE BUTTON */
+.delete-btn{
+    margin-top:10px;
+    padding:8px 14px;
+    background:#ff3b3b;
+    border:none;
+    border-radius:10px;
+    color:white;
+    cursor:pointer;
+    font-weight:600;
+    box-shadow:0 0 15px rgba(255,50,50,0.4);
+    transition:0.2s;
+}
+.delete-btn:hover{
+    background:#ff0000;
+    transform:scale(1.05);
+}
+
+/* SCROLL ANIMATION */
+.section{
+    opacity:0;
+    transform:translateY(40px);
+    transition:1s;
+}
+.section.show{
+    opacity:1;
+    transform:translateY(0);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>कर्म ही धर्म है</h1>
+    <p>Walk the path of truth, courage & devotion.</p>
+</header>
+
+
+<% if (sections.length === 0) { %>
+
+  <div style="text-align:center; margin-top:40px;">
+    <p>No Dharma sections added yet.</p>
+    <a href="/collections/devotion/god-photos/add" style="color:#00ffee">
+      ➕ Add First Dharma Section
+    </a>
+  </div>
+
+<% } else { %>
+
+  <% sections.forEach((s,i)=>{ %>
+
+  <div class="section <%= i % 2 !== 0 ? 'right' : '' %>">
+      
+      <div class="text">
+          <h2><%= s.title %></h2>
+          <p><%= s.description %></p>
+
+          <!-- DELETE BUTTON -->
+          <form 
+            action="/collections/devotion/god-photos/delete/<%= s._id %>" 
+            method="POST"
+            onsubmit="return confirm('Delete this Dharma section?')">
+
+            <button class="delete-btn">Delete</button>
+          </form>
+
+      </div>
+
+      <div class="image">
+          <img src="<%= s.imageUrl %>" alt="Dharma Image">
+      </div>
+
+  </div>
+
+  <% }) %>
+
+<% } %>
+
+
+<!-- ADD NEW BUTTON -->
+<div style="text-align:center; margin:40px;">
+  <a href="/collections/devotion/god-photos/add" style="color:#00ffee">
+    ➕ Add New Dharma Section
+  </a>
+</div>
+
+
+<script>
+const sections = document.querySelectorAll('.section');
+
+function reveal(){
+  sections.forEach(sec=>{
+    const rect = sec.getBoundingClientRect();
+    if(rect.top < window.innerHeight - 120){
+      sec.classList.add("show");
+    }
+  });
+}
+
+window.addEventListener("scroll", reveal);
+reveal();
+</script>
+
+</body>
+</html>

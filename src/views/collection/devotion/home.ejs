@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Divine Space — जय बजरंगबली</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    background:#000;
+    color:white;
+    font-family:'Poppins',sans-serif;
+    overflow-x:hidden;
+}
+
+/* 🌌 Deep Universe Background */
+body::before{
+    content:'';
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background:radial-gradient(circle at 50% 20%, rgba(255,182,66,0.08), transparent 40%),
+               radial-gradient(circle at 10% 80%, rgba(255,255,255,0.07), transparent 35%),
+               radial-gradient(circle at 90% 30%, rgba(0,255,200,0.15), transparent 45%),
+               #000;
+    z-index:-3;
+}
+
+/* ✨ Infinite Stars */
+.stars{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:url('https://www.transparenttextures.com/patterns/stardust.png');
+    opacity:0.35;
+    animation: drift 45s linear infinite;
+    z-index:-2;
+}
+@keyframes drift{
+    from{transform:translateY(0);}
+    to{transform:translateY(-1200px);}
+}
+
+/* 🎇 Divine Aura Glow Layer */
+.aura{
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background:radial-gradient(circle at 50% 50%, rgba(255,162,0,0.15), transparent 50%);
+    filter:blur(20px);
+    animation:pulse 6s ease-in-out infinite;
+    z-index:-1;
+}
+@keyframes pulse{
+    0%{opacity:0.3;}
+    50%{opacity:0.7;}
+    100%{opacity:0.3;}
+}
+
+/* Navbar */
+nav{
+    display:flex;
+    justify-content:space-between;
+    padding:20px 40px;
+    background:rgba(10,10,10,0.75);
+    backdrop-filter:blur(10px);
+    position:sticky;
+    top:0;
+}
+nav h1{
+    color:#ffae00;
+}
+nav a{
+    color:#00ffee;
+    text-decoration:none;
+}
+
+/* Hero Div */
+.hero{
+    text-align:center;
+    padding:80px 20px 30px 20px;
+}
+
+/* Divine Title */
+.hero h2{
+    font-size:36px;
+    color:#ffae00;
+    letter-spacing:2px;
+    text-shadow:0 0 25px rgba(255,174,0,0.9);
+    animation:fadeIn 2s ease-in-out;
+}
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(20px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+/* 🕉 Hanuman Divine Box */
+.hanuman-container{
+    position:relative;
+    max-width:520px;
+    margin:40px auto;
+}
+
+/* Holy Light Circle */
+.light{
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:380px;
+    height:380px;
+    transform:translate(-50%,-50%);
+    background:radial-gradient(circle, rgba(255,170,0,0.35), transparent 70%);
+    border-radius:50%;
+    filter:blur(20px);
+    animation:breath 4s ease-in-out infinite;
+}
+@keyframes breath{
+    0%{transform:translate(-50%,-50%) scale(1);}
+    50%{transform:translate(-50%,-50%) scale(1.08);}
+    100%{transform:translate(-50%,-50%) scale(1);}
+}
+
+/* Image Box */
+.hanuman-box{
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 0 60px rgba(255,150,0,0.7);
+    animation:glow 3s ease-in-out infinite alternate;
+}
+@keyframes glow{
+    from{box-shadow:0 0 30px rgba(255,150,0,0.4);}
+    to{box-shadow:0 0 75px rgba(255,150,0,1);}
+}
+
+.hanuman-box img{
+    width:100%;
+    display:block;
+}
+
+/* Mantra under image */
+.mantra{
+    color:#ffae00;
+    letter-spacing:1px;
+    text-shadow:0 0 15px rgba(255,180,0,0.8);
+    animation:fadeIn 3s ease-in-out;
+}
+
+/* Section Title */
+.section-title{
+    color:#00ffee;
+    text-align:center;
+    margin-top:60px;
+}
+
+/* Cards */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    padding:20px;
+    max-width:1100px;
+    margin:auto;
+}
+
+.card{
+    background:rgba(20,20,20,0.95);
+    border-radius:18px;
+    text-align:center;
+    padding:25px;
+    box-shadow:0 0 30px rgba(0,255,200,0.3);
+    transition:0.3s;
+}
+.card:hover{
+    transform:translateY(-7px) scale(1.02);
+    box-shadow:0 0 55px rgba(0,255,200,0.7);
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    color:#777;
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+<div class="aura"></div>
+
+<nav>
+    <h1>🕉 Divine Presence</h1>
+    <a href="/collections">← Back</a>
+</nav>
+
+<div class="hero">
+    <h2>Enter the Sacred Universe</h2>
+    <p>Close your eyes for a moment… feel the strength… feel the peace 🕉</p>
+
+    <div class="hanuman-container">
+        <div class="light"></div>
+
+        <div class="hanuman-box">
+            <img src="https://i.pinimg.com/736x/df/43/98/df4398136446ca1e6e4961b06d3d4582.jpg">
+        </div>
+    </div>
+
+    <h3 class="mantra">जय श्री राम | जय बजरंगबली</h3>
+</div>
+
+<h3 class="section-title">Your Spiritual Space</h3>
+
+<div class="grid">
+
+    <div class="card" onclick="window.location.href='/collections/devotion/god-photos'">
+        📿<h3>God Photos</h3>
+        <p>Divine images & sacred wallpapers</p>
+    </div>
+
+    <div class="card" onclick="window.location.href='/collections/devotion/bhajans'">
+        🎶<h3>Bhajans</h3>
+        <p>Peaceful devotional songs</p>
+    </div>
+
+    <div class="card" onclick="window.location.href='/collections/devotion/playlists'">
+        🎧<h3>Playlists</h3>
+        <p>Saved bhajan & mantra playlists</p>
+    </div>
+
+    <div class="card" onclick="window.location.href='/collections/devotion/notes'">
+        📜<h3>Spiritual Notes</h3>
+        <p>Thoughts, learnings & quotes</p>
+    </div>
+
+</div>
+
+<footer>
+    Made with faith & devotion 🕉
+</footer>
+
+</body>
+</html>

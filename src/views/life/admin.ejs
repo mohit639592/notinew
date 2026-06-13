@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit LifeScorecard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      background: #0b0b0b;
+      color: #fff;
+      font-family: "Segoe UI", sans-serif;
+      padding: 40px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      letter-spacing: 2px;
+    }
+
+    form {
+      max-width: 700px;
+      margin: auto;
+      background: #121212;
+      padding: 30px;
+      border-radius: 12px;
+      border: 1px solid #1f1f1f;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      background: #0b0b0b;
+      border: 1px solid #333;
+      color: #fff;
+      border-radius: 8px;
+    }
+
+    input[readonly] {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    button {
+      margin-top: 30px;
+      width: 100%;
+      padding: 15px;
+      background: #00ffcc;
+      border: none;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      color: #000;
+    }
+
+    button.secondary {
+      background: transparent;
+      border: 1px solid #00ffcc;
+      color: #00ffcc;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+
+<h1>EDIT LIFE SCORECARD</h1>
+
+<!-- ================= UPDATE LIFE DATA ================= -->
+<form method="POST" action="/life?_method=PUT">
+
+  <!-- BASIC -->
+  <label>Name</label>
+  <input name="name" value="<%= life.name %>">
+
+  <label>Role</label>
+  <input name="role" value="<%= life.role %>">
+
+  <label>Career Start Year</label>
+  <input name="careerStart" value="<%= life.careerStart %>">
+
+  <!-- STATS -->
+  <label>Total Projects</label>
+  <input name="stats[totalProjects]" value="<%= life.stats.totalProjects %>">
+
+  <label>Domains</label>
+  <input name="stats[domains]" value="<%= life.stats.domains %>">
+
+  <label>Skills Rated</label>
+  <input name="stats[skillsRated]" value="<%= life.stats.skillsRated %>">
+
+  <button type="submit">Update Scorecard</button>
+</form>
+
+<!-- ================= GITHUB AUTO SYNC ================= -->
+<form method="POST" action="/life/sync-github">
+  <h2 style="text-align:center; margin-bottom:15px;">GitHub (Auto)</h2>
+
+  <label>Repositories</label>
+  <input value="<%= life.github.repos %>" readonly>
+
+  <label>Followers</label>
+  <input value="<%= life.github.followers %>" readonly>
+
+  <label>Following</label>
+  <input value="<%= life.github.following %>" readonly>
+
+  <label>GitHub Since</label>
+  <input value="<%= life.github.githubSince %>" readonly>
+
+  <button type="submit" class="secondary">🔄 Sync GitHub Stats</button>
+</form>
+
+</body>
+</html>
