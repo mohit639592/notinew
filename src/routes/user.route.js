@@ -136,7 +136,8 @@ router.get("/collections/movies", async (req, res) => {
     if (!req.session.email)
         return res.status(401).send("Please login first");
 
-    const userMovies = await Movies.find({ email: req.session.email });
+    const userMovies = await Movies.find({});
+console.log(userMovies);
 
     const watched = userMovies.filter(m => m.status === "watched");
     const notWatched = userMovies.filter(m => m.status === "not watched");
